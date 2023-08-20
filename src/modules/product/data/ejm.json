@@ -1,0 +1,85 @@
+{
+    "received_products": [
+      {
+        "id": 1,
+        "nombre": "Pantalla OLED Xiaomi Redmi Note 10",
+        "stock": 50,
+        "entrada": 100,
+        "costo_por_unidad": 150,
+        "fecha": "2023-04-15"
+      },
+      {
+        "id": 2,
+        "nombre": "Pantalla AMOLED Huawei P40 Pro",
+        "stock": 30,
+        "entrada": 70,
+        "costo_por_unidad": 200,
+        "fecha": "2023-03-20"
+      },
+      {
+        "id": 3,
+        "nombre": "Pantalla Super AMOLED Samsung Galaxy S21",
+        "stock": 25,
+        "entrada": 50,
+        "costo_por_unidad": 250,
+        "fecha": "2023-05-10"
+      },
+      {
+        "id": 4,
+        "nombre": "Pantalla Realme X3 SuperZoom",
+        "stock": 40,
+        "entrada": 80,
+        "costo_por_unidad": 180,
+        "fecha": "2023-06-05"
+      },
+      {
+        "id": 5,
+        "nombre": "Pantalla OLED Oppo Find X2",
+        "stock": 20,
+        "entrada": 40,
+        "costo_por_unidad": 170,
+        "fecha": "2023-02-25"
+      },
+      {
+        "id": 6,
+        "nombre": "Pantalla AMOLED Xiaomi Mi 11",
+        "stock": 15,
+        "entrada": 30,
+        "costo_por_unidad": 220,
+        "fecha": "2023-07-12"
+      },
+      {
+        "id": 7,
+        "nombre": "Pantalla Super AMOLED Samsung Galaxy A72",
+        "stock": 35,
+        "entrada": 60,
+        "costo_por_unidad": 230,
+        "fecha": "2023-04-28"
+      },
+      {
+        "id": 8,
+        "nombre": "Pantalla Realme Narzo 30 Pro",
+        "stock": 45,
+        "entrada": 90,
+        "costo_por_unidad": 160,
+        "fecha": "2023-06-20"
+      },
+      {
+        "id": 9,
+        "nombre": "Pantalla OLED Huawei Mate 40",
+        "stock": 28,
+        "entrada": 55,
+        "costo_por_unidad": 210,
+        "fecha": "2023-03-15"
+      },
+      {
+        "id": 10,
+        "nombre": "Pantalla AMOLED Oppo Reno 5",
+        "stock": 18,
+        "entrada": 36,
+        "costo_por_unidad": 190,
+        "fecha": "2023-07-28"
+      }
+    ]
+  }
+  

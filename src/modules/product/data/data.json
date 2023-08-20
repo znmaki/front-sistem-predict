@@ -1,0 +1,14 @@
+{
+  "infoTitle": {
+    "inventoryData": "Esta sección mostrará las unidades disponibles del producto seleccionado, incluyendo las unidades vendidas, cantidad de dinero que recibió por las ventas y la diferencia entre el precio de venta y el costo de compra del producto.",
+    "inventoryOptimized": "Falta definir",
+    "productCatalog": "Esta sección mostrará una lista completa de todos los productos que se han ingresado en el inventario. Al costado de cada nombre de producto, se encuentra un botón de detalles que permitirá acceder a información sobre el producto, así como a los resultados de los modelos matemáticos para la optimización del inventario y la predicción de la demanda.",
+    "predictedDemand": "Falta definir"
+  },
+  "titleCard": [
+    "Unidades disponibles",
+    "Unidades vendidas",
+    "Ingreso total en Soles",
+    "Ganancia total en Soles"
+  ]
+}
