@@ -1,46 +1,40 @@
 import { Box, Modal, Typography } from '@mui/material';
 import { useModal, useValidation } from '../../../hooks';
-import { Buttom, FormProduct, inputForm } from '../../../shared';
+import { Buttom, FormProduct, inputFormSold } from '../../../shared';
 import { ProductSoldTable } from '../components/ProductTable';
+import { useProductSales } from '../hooks/useProductSales';
+import Loading from '../../../shared/components/Loading';
 
 const SaleProductEntry = () => {
   const { open, handleOpen, handleClose, style } = useModal();
-  const validationSchema = useValidation(inputForm);
-
-  const handleSubmit = (values: unknown) => {
-    console.log(values);
-  };
-
-  const initialValues = {
-    productName: '',
-    quantity: 0,
-    price: 0,
-    date: '',
-  };
+  const { validationSchema, initialSold } = useValidation(inputFormSold);
+  const { data, handleSubmit, isLoading } = useProductSales(handleOpen)
 
   return (
-    <div className='h-screen px-10 space-y-10 pt-16'>
-      <Typography variant="h4" component='h1' className='!font-bold !text-[3.125rem]'>
-        Registro de productos vendidos
-      </Typography>
-      <Buttom click={handleOpen}>Ingresar venta</Buttom>
-      <ProductSoldTable />
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormProduct
-            inputConfigs={inputForm}
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          />
-        </Box>
-      </Modal>
-    </div>
+    isLoading ? (
+      <Loading />
+    ) : (
+      <div className='h-screen px-10 space-y-10 pt-16'>
+        <Typography variant="h4" component='h1' className='!font-bold !text-[3.125rem]'>
+          Registro de productos vendidos
+        </Typography>
+        <Buttom modalOpen={handleOpen}>Ingresar venta</Buttom>
+        <ProductSoldTable rowData={data} handleOpen={handleOpen} />
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          <Box sx={style}>
+            <FormProduct
+              inputConfigs={inputFormSold}
+              initialValues={initialSold}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+              titleButom='Venta'
+            />
+          </Box>
+        </Modal>
+      </div>)
   )
 }
 

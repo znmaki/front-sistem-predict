@@ -4,8 +4,12 @@ import { Fragment } from 'react';
 import { Typography } from '@mui/material';
 import { InputFormChild, InputForm, InputFormLogin } from './InputForm';
 import { Buttom } from '../..';
+import { useQueryClient } from '@tanstack/react-query';
 
-export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationSchema }: any) => {
+export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationSchema, titleButom }: any) => {
+    const queryClient = useQueryClient();
+    const productId: number | undefined = queryClient.getQueryData(['productId']);
+
     return (
         <Formik
             initialValues={initialValues}
@@ -14,7 +18,12 @@ export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationS
         >
             <>
                 <Typography variant="h4" component='h1'>
-                    Registrar Venta <Typography variant="h4" component='span' className='text-[#FF954A]'>Nro. 21</Typography>
+                    {productId ? (
+                        <Fragment>
+                            Editar {titleButom} con <Typography variant="h4" component='span' className='text-[#FF954A]'>ID {productId}</Typography>
+                        </Fragment>) : (
+                        <Fragment>Registrar {titleButom}</Fragment>
+                    )}
                 </Typography>
                 <hr className='my-10' />
                 <Form className='space-y-10'>
@@ -31,8 +40,8 @@ export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationS
                         </Fragment>
                     ))}
                     <div className='flex justify-center'>
-                        <Buttom click={() => { console.log('sa') }}>
-                            Registrar Venta
+                        <Buttom>
+                            {productId ? `Editar ${titleButom}` : `Registrar ${titleButom}`}
                         </Buttom>
                     </div>
                 </Form>
@@ -56,7 +65,7 @@ export const FormUser = ({ inputConfigs, initialValues, onSubmit, validationSche
                             <InputFormLogin id={config.id} content={config.title} />
                         </Fragment>
                     ))}
-                    <Buttom style='w-full' click={() => { console.log('sa') }}>{txtBtn}</Buttom>
+                    <Buttom style='w-full'>{txtBtn}</Buttom>
                 </Form>
             </>
         </Formik>

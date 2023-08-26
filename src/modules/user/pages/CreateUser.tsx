@@ -4,24 +4,12 @@ import SVG from "../../../assets/create-user.svg";
 import { Link } from "react-router-dom";
 import { useValidation } from "../../../hooks";
 import { FormUser, inputCreateAccount } from "../../../shared";
-import { UserRegistration } from "../hooks/useRegister";
-import { apiService } from "../../../shared/services/axios";
+import { useRegister } from "../hooks/useRegister";
 
 const CreateUser = () => {
-  const validationSchema = useValidation(inputCreateAccount);
+  const { validationSchema, initialCreateUser } = useValidation(inputCreateAccount);
+  const { handleSubmit } = useRegister()
 
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  };
-
-  const handleSubmit = async (values: UserRegistration) => {
-    console.log(values);
-    const request = await apiService.post("/auth/register", values);
-    console.log(request);
-  };
 
   return (
     <Grid container className="h-screen">
@@ -33,7 +21,7 @@ const CreateUser = () => {
             <div>
               <FormUser
                 inputConfigs={inputCreateAccount}
-                initialValues={initialValues}
+                initialValues={initialCreateUser}
                 onSubmit={handleSubmit}
                 validationSchema={validationSchema}
                 txtBtn="Crear Cuenta"

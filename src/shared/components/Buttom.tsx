@@ -6,16 +6,16 @@ interface BaseButtonProps {
 }
 
 interface ButtonProps extends BaseButtonProps {
-	click: React.MouseEventHandler<HTMLButtonElement> | undefined;
+	modalOpen?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 interface ButtonHeaderProps extends BaseButtonProps {
 	text: string;
 }
 
-export const Buttom = ({ children, click, style }: ButtonProps) => {
+export const Buttom = ({ children, modalOpen, style }: ButtonProps) => {
 	return (
-		<button onClick={click} className={`bg-[#FF954A] text-xl px-4 pt-3 pb-4 rounded-md text-white font-bold ${style}`}>
+		<button type='submit' onClick={modalOpen} className={`bg-[#FF954A] text-xl px-4 pt-3 pb-4 rounded-md text-white font-bold ${style}`}>
 			{children}
 		</button>
 	)

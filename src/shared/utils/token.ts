@@ -23,3 +23,15 @@ export const setRefreshToken = (token: string) => {
 export const removeRefreshToken = () => {
   removeCookie("refreshToken");
 };
+
+export const getLoginUser = () => {
+  return getCookie("loginUser");
+}
+
+export const setLoginUser = (user: string) => {
+  setCookie("loginUser", user, 1);
+};
+
+export const removeLoginUser = () => {
+  removeCookie("loginUser");
+};

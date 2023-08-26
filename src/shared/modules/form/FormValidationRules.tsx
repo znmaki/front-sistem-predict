@@ -12,15 +12,16 @@ interface IConstInpuForm {
   validation?: Yup.Schema<unknown>;
 }
 
-export const inputForm: IConstInpuForm[] = [
+export const inputFormSold: IConstInpuForm[] = [
   {
-    id: "productName",
+    id: "nameProduct",
     title: "Producto:",
     type: "normal",
+    typeInput: 'select',
     validation: Yup.string().required("El nombre del producto es obligatorio"),
   },
   {
-    id: "quantity",
+    id: "cantidad_vendida",
     title: "Salida:",
     type: "child",
     typeInput: "number",
@@ -35,7 +36,7 @@ export const inputForm: IConstInpuForm[] = [
       .required("La cantidad es obligatoria"),
   },
   {
-    id: "price",
+    id: "costo_venta",
     title: "Precio de venta por unidad (Soles):",
     type: "child",
     typeInput: "number",
@@ -50,7 +51,7 @@ export const inputForm: IConstInpuForm[] = [
       .required("La cantidad es obligatoria"),
   },
   {
-    id: "date",
+    id: "fecha",
     title: "Fecha:",
     type: "normal",
     typeInput: "date",
@@ -60,28 +61,29 @@ export const inputForm: IConstInpuForm[] = [
 
 export const inputFormProduct = [
   {
-    id: "productName",
+    id: "nameProduct",
     title: "Producto:",
     type: "normal",
     validation: Yup.string().required("El nombre del producto es obligatorio"),
   },
 ];
 
-export const inputFormNewProduct: IConstInpuForm[] = [
+export const inputFormRecieved: IConstInpuForm[] = [
   {
-    id: "productName",
+    id: "nameProduct",
     title: "Producto:",
     type: "normal",
+    typeInput: 'select',
     validation: Yup.string().required("El nombre del producto es obligatorio"),
   },
   {
-    id: "quantity",
-    title: "Entrada:",
+    id: "cantidad_comprada",
+    title: "Salida:",
     type: "child",
     typeInput: "number",
     additionalComponent: (
       <Typography component="p" className="text-[#FF954A] !text-xl">
-        Unidades
+        Stock Actual 40 Unid.
       </Typography>
     ),
     validation: Yup.number()
@@ -90,8 +92,8 @@ export const inputFormNewProduct: IConstInpuForm[] = [
       .required("La cantidad es obligatoria"),
   },
   {
-    id: "price",
-    title: "Costo por unidad (Soles):",
+    id: "costo_compra",
+    title: "Precio de venta por unidad (Soles):",
     type: "child",
     typeInput: "number",
     additionalComponent: (
@@ -105,11 +107,11 @@ export const inputFormNewProduct: IConstInpuForm[] = [
       .required("La cantidad es obligatoria"),
   },
   {
-    id: "date",
+    id: "fecha",
     title: "Fecha:",
     type: "normal",
     typeInput: "date",
-    validation: Yup.string().required("El nombre del producto es obligatorio"),
+    validation: Yup.string().required("La fecha es obligatoria"),
   },
 ];
 

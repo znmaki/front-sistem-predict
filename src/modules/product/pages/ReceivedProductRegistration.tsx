@@ -1,45 +1,40 @@
 import { Box, Modal, Typography } from '@mui/material';
 import { useModal, useValidation } from '../../../hooks';
-import { Buttom, FormProduct, inputForm } from '../../../shared';
+import { Buttom, FormProduct, inputFormRecieved } from '../../../shared';
 import { ProductRecievedTable } from '../components/ProductTable';
+import { useProductEntry } from '../hooks/useProductEntry';
+import Loading from '../../../shared/components/Loading';
 
 const NewProductEntry = () => {
   const { open, handleOpen, handleClose, style } = useModal();
-  const validationSchema = useValidation(inputForm);
-  const handleSubmit = (values: unknown) => {
-    console.log(values);
-  };
-
-  const initialValues = {
-    productName: '',
-    quantity: 0,
-    price: 0,
-    date: '',
-  };
+  const { validationSchema, initialReceived } = useValidation(inputFormRecieved);
+  const { data, handleSubmit, isLoading } = useProductEntry(handleOpen)
 
   return (
-    <div className='h-screen px-10 space-y-10 pt-16'>
-      <Typography variant="h4" component='h1' className='!font-bold !text-[3.125rem]'>
-        Registro de nuevos productos recibidos
-      </Typography>
-      <Buttom click={handleOpen}>Ingresar nuevo producto</Buttom>
-      <ProductRecievedTable />
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormProduct
-            inputConfigs={inputForm}
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          />
-        </Box>
-      </Modal>
-    </div>
+    isLoading ? (
+      <Loading />
+    ) : (
+      <div className='h-screen px-10 space-y-10 pt-16'>
+        <Typography variant="h4" component='h1' className='!font-bold !text-[3.125rem]'>
+          Registro de nuevos productos recibidos
+        </Typography>
+        <Buttom modalOpen={handleOpen}>Ingresar nueva entrada</Buttom>
+        <ProductRecievedTable rowData={data} handleOpen={handleOpen} />
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          <Box sx={style}>
+            <FormProduct
+              inputConfigs={inputFormRecieved}
+              initialValues={initialReceived}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+              titleButom='Entrada'
+            />
+          </Box>
+        </Modal>
+      </div>)
   )
 }
 

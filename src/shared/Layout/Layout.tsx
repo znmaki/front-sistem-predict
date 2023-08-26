@@ -1,9 +1,18 @@
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { Navbar } from ".."
+import { Header } from "../../modules/product"
+import { useLogin } from "../../modules/user/hooks/useLogin"
 
 const Layout = () => {
+	const { isLogin } = useLogin()
+
+	if (!isLogin) {
+		return <Navigate to="/login" replace />;
+	}
+
 	return (
 		<div className="flex min-h-screen">
+			<Header />
 			<div className="bg-[#3F3D56] w-[20%]">
 				<Navbar />
 			</div>

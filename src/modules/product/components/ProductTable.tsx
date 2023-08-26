@@ -1,11 +1,9 @@
-import { DataGrid, GridColDef, GridToolbarQuickFilter } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
-import { columnsCatalog, rows, rowsCatalog, columnsSoldProduct, columnsNewProduct, columnsRecievedProduct } from './TableConfigurator';
-
-interface Props {
-    rows: any
-    columns: GridColDef[]
-}
+import { columnsCatalog, rowsCatalog, columnsSoldProduct, columnsNewProduct, columnsRecievedProduct } from './TableConfigurator';
+import { useProduct } from '../hooks/useProduct';
+import { useProductEntry } from '../hooks/useProductEntry';
+import { useProductSales } from '../hooks/useProductSales';
 
 const QuickSearchToolbar = () => {
     return (
@@ -17,150 +15,159 @@ const QuickSearchToolbar = () => {
 }
 
 //const ProductTable = ({ rows, columns }: Props) => {
-const ProductTable = () => {
+const ProductTable = ({ rowData, handleOpen }: any) => {
+    const { handleDelete, handleEdit } = useProduct(handleOpen)
     return (
-        <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
-            <DataGrid
-                rows={rows}
-                columns={columnsNewProduct}
-                slots={{
-                    toolbar: QuickSearchToolbar
-                }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 25]}
-                sx={{
-                    '& .MuiDataGrid-columnHeader': {
-                        backgroundColor: '#3F3D56',
-                        fontWeight: 'bold',
-                        fontSize: '1.25rem',
-                        color: '#FFFFFF',
-                        padding: '8px',
-                        paddingLeft: '2rem'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        color: '#3F3D56',
-                        paddingLeft: '2rem',
-                        /* fontWeight: 'bold', */
-                        fontSize: '1.25rem',
-                    },
-                    border: 'none',
-                }}
-            />
+        <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'><DataGrid
+            rows={rowData}
+            columns={columnsNewProduct(handleDelete, handleEdit)}
+            slots={{
+                toolbar: QuickSearchToolbar
+            }}
+            initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+            }}
+            pageSizeOptions={[5, 10, 25]}
+            sx={{
+                '& .MuiDataGrid-columnHeader': {
+                    backgroundColor: '#3F3D56',
+                    fontWeight: 'bold',
+                    fontSize: '1.25rem',
+                    color: '#FFFFFF',
+                    padding: '8px',
+                    paddingLeft: '2rem'
+                },
+                '& .MuiDataGrid-cell': {
+                    color: '#3F3D56',
+                    paddingLeft: '2rem',
+                    /* fontWeight: 'bold', */
+                    fontSize: '1.25rem',
+                },
+                border: 'none',
+            }}
+        />
         </div>
     );
 }
 
-const ProductRecievedTable = () => {
+const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
+    const { handleDelete, handleEdit } = useProductEntry(handleOpen)
     return (
         <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
-            <DataGrid
-                rows={rows}
-                columns={columnsRecievedProduct}
-                slots={{
-                    toolbar: QuickSearchToolbar
-                }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 25]}
-                sx={{
-                    '& .MuiDataGrid-columnHeader': {
-                        backgroundColor: '#3F3D56',
-                        fontWeight: 'bold',
-                        fontSize: '1.25rem',
-                        color: '#FFFFFF',
-                        padding: '8px',
-                        paddingLeft: '2rem'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        color: '#3F3D56',
-                        paddingLeft: '2rem',
-                        /* fontWeight: 'bold', */
-                        fontSize: '1.25rem',
-                    },
-                    border: 'none',
-                }}
-            />
+            {!rowData ? (<p>no hay</p>) : (
+                <DataGrid
+                    rows={rowData}
+                    columns={columnsRecievedProduct(handleDelete, handleEdit)}
+                    slots={{
+                        toolbar: QuickSearchToolbar
+                    }}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10, 25]}
+                    sx={{
+                        '& .MuiDataGrid-columnHeader': {
+                            backgroundColor: '#3F3D56',
+                            fontWeight: 'bold',
+                            fontSize: '1.25rem',
+                            color: '#FFFFFF',
+                            padding: '8px',
+                            paddingLeft: '2rem'
+                        },
+                        '& .MuiDataGrid-cell': {
+                            color: '#3F3D56',
+                            paddingLeft: '2rem',
+                            /* fontWeight: 'bold', */
+                            fontSize: '1.25rem',
+                        },
+                        border: 'none',
+                    }}
+                />
+            )}
         </div>
     );
 }
 
-const ProductSoldTable = () => {
+const ProductSoldTable = ({ rowData, handleOpen }: any) => {
+    const { handleDelete, handleEdit } = useProductSales(handleOpen)
     return (
         <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
-            <DataGrid
-                rows={rows}
-                columns={columnsSoldProduct}
-                slots={{
-                    toolbar: QuickSearchToolbar
-                }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 25]}
-                sx={{
-                    '& .MuiDataGrid-columnHeader': {
-                        backgroundColor: '#3F3D56',
-                        fontWeight: 'bold',
-                        fontSize: '1.25rem',
-                        color: '#FFFFFF',
-                        padding: '8px',
-                        paddingLeft: '2rem'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        color: '#3F3D56',
-                        paddingLeft: '2rem',
-                        /* fontWeight: 'bold', */
-                        fontSize: '1.25rem',
-                    },
-                    border: 'none',
-                }}
-            />
+            {!rowData ? (<p>no hay</p>) : (
+                <DataGrid
+                    rows={rowData}
+                    columns={columnsSoldProduct(handleDelete, handleEdit)}
+                    slots={{
+                        toolbar: QuickSearchToolbar
+                    }}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10, 25]}
+                    sx={{
+                        '& .MuiDataGrid-columnHeader': {
+                            backgroundColor: '#3F3D56',
+                            fontWeight: 'bold',
+                            fontSize: '1.25rem',
+                            color: '#FFFFFF',
+                            padding: '8px',
+                            paddingLeft: '2rem'
+                        },
+                        '& .MuiDataGrid-cell': {
+                            color: '#3F3D56',
+                            paddingLeft: '2rem',
+                            /* fontWeight: 'bold', */
+                            fontSize: '1.25rem',
+                        },
+                        border: 'none',
+                    }}
+                />
+            )}
         </div>
     );
 }
 
-const TableCatalog = () => {
+const TableCatalog = ({ rowData }: any) => {
+
     return (
         <div className='h-[88.5%] bg-white m-auto rounded-sm px-10 py-7 shadow-lg'>
-            <DataGrid
-                rows={rowsCatalog}
-                columns={columnsCatalog}
-                slots={{
-                    toolbar: QuickSearchToolbar
-                }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { pageSize: 7 },
-                    },
-                }}
-                pageSizeOptions={[7]}
-                sx={{
-                    '& .MuiDataGrid-columnHeader': {
-                        backgroundColor: '#3F3D56',
-                        fontWeight: 'bold',
-                        fontSize: '1.25rem',
-                        color: '#FFFFFF',
-                        padding: '8px',
-                        paddingLeft: '2rem'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        color: '#3F3D56',
-                        paddingLeft: '2rem',
-                        /* fontWeight: 'bold', */
-                        fontSize: '1.25rem',
-                    },
-                    border: 'none',
-                }}
-            />
+            {!rowData ? (<p>no hay</p>) : (
+                <DataGrid
+                    rows={rowData}
+                    columns={columnsCatalog}
+                    slots={{
+                        toolbar: QuickSearchToolbar
+                    }}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { pageSize: 7 },
+                        },
+                    }}
+                    pageSizeOptions={[7]}
+                    sx={{
+                        '& .MuiDataGrid-columnHeader': {
+                            backgroundColor: '#3F3D56',
+                            fontWeight: 'bold',
+                            fontSize: '1.25rem',
+                            color: '#FFFFFF',
+                            padding: '8px',
+                            paddingLeft: '2rem'
+                        },
+                        '& .MuiDataGrid-cell': {
+                            color: '#3F3D56',
+                            paddingLeft: '2rem',
+                            /* fontWeight: 'bold', */
+                            fontSize: '1.25rem',
+                        },
+                        border: 'none',
+                    }}
+                />
+            )}
         </div>
     )
 }

@@ -1,10 +1,16 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 const useModal = () => {
+    const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        queryClient.removeQueries(['productSelect']);
+        queryClient.removeQueries(['productId']);
+        setOpen(false)
+    };
 
     const style = {
         position: 'absolute',

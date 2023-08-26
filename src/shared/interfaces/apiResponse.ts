@@ -1,4 +1,5 @@
 export type ApiResponse<T> = {
+  code: number;
   status: number;
   message: string;
   body: T;
