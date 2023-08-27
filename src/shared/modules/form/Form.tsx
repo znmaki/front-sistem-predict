@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import { InputFormChild, InputForm, InputFormLogin } from './InputForm';
 import { Buttom } from '../..';
 import { useQueryClient } from '@tanstack/react-query';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationSchema, titleButom }: any) => {
     const queryClient = useQueryClient();
@@ -50,7 +51,7 @@ export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationS
     );
 };
 
-export const FormUser = ({ inputConfigs, initialValues, onSubmit, validationSchema, txtBtn }: any) => {
+export const FormUser = ({ inputConfigs, initialValues, onSubmit, validationSchema, txtBtn, handleChangeCaptcha }: any) => {
     return (
         <Formik
             initialValues={initialValues}
@@ -65,6 +66,11 @@ export const FormUser = ({ inputConfigs, initialValues, onSubmit, validationSche
                             <InputFormLogin id={config.id} content={config.title} />
                         </Fragment>
                     ))}
+                    <ReCAPTCHA
+                        sitekey="6Lfq1NgnAAAAAJN3jF5bK5f29gNy9TTJMZwcFNfz"
+                        onChange={handleChangeCaptcha}
+                    />
+                    <p>Debes aceptar el Captcha</p>
                     <Buttom style='w-full'>{txtBtn}</Buttom>
                 </Form>
             </>

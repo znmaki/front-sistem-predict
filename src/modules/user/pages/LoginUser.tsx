@@ -8,7 +8,7 @@ import { useLogin } from "../hooks/useLogin";
 
 const LoginUser = () => {
   const { validationSchema, initialValues } = useValidation(inputFormLogin);
-  const { handleSubmit } = useLogin()
+  const { handleSubmit, handleCaptcha } = useLogin()
 
   return (
     <Grid container className="h-screen">
@@ -24,6 +24,7 @@ const LoginUser = () => {
                 onSubmit={handleSubmit}
                 validationSchema={validationSchema}
                 txtBtn="Iniciar Sesión"
+                handleChangeCaptcha={handleCaptcha}
               />
             </div>
             <Typography component="p" className="text-center">

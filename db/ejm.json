@@ -14,6 +14,13 @@
       "costo_compra": 2,
       "fecha": "2023-08-23",
       "id": 2
+    },
+    {
+      "nameProduct": "Pantalla OLED Xiaomi Redmi Note 10",
+      "cantidad_comprada": 123,
+      "costo_compra": 123,
+      "fecha": "2023-08-03",
+      "id": 3
     }
   ],
   "products": [
@@ -32,21 +39,9 @@
     {
       "nameProduct": "aae",
       "id": 5
-    },
-    {
-      "nameProduct": "Producto prueba",
-      "id": 6
     }
   ],
   "sold_products": [
-    {
-      "id": 1,
-      "nameProduct": "Pantalla OLED Xiaomi Redmi Note 10",
-      "stock": 50,
-      "cantidad_vendida": 100,
-      "costo_venta": 150,
-      "fecha": "2023-04-15"
-    },
     {
       "nameProduct": "Prueba",
       "cantidad_vendida": 123,
