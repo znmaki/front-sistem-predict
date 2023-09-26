@@ -8,7 +8,7 @@ import Loading from '../../../shared/components/Loading';
 const SaleProductEntry = () => {
   const { open, handleOpen, handleClose, style } = useModal();
   const { validationSchema, initialSold } = useValidation(inputFormSold);
-  const { data, handleSubmit, isLoading } = useProductSales(handleOpen)
+  const { data, handleSubmit, isLoading } = useProductSales()
 
   return (
     isLoading ? (
@@ -19,7 +19,7 @@ const SaleProductEntry = () => {
           Registro de productos vendidos
         </Typography>
         <Buttom modalOpen={handleOpen}>Ingresar venta</Buttom>
-        <ProductSoldTable rowData={data} handleOpen={handleOpen} />
+        <ProductSoldTable rowData={data}/>
         <Modal
           open={open}
           onClose={handleClose}

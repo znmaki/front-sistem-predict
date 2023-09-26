@@ -19,7 +19,7 @@ const NewProductEntry = () => {
           Registro de nuevos productos recibidos
         </Typography>
         <Buttom modalOpen={handleOpen}>Ingresar nueva entrada</Buttom>
-        <ProductRecievedTable rowData={data} handleOpen={handleOpen} />
+        <ProductRecievedTable rowData={data}/>
         <Modal
           open={open}
           onClose={handleClose}

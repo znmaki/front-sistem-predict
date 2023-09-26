@@ -7,6 +7,8 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 
 	const queryClient = useQueryClient();
 	const infoProducts: [] | undefined = queryClient.getQueryData(['infoProducts']);
+	const products: number | undefined = queryClient.getQueryData(['products']);
+	let stockProduct
 
 	const handleSelectChange = (event) => {
 		const selectedValue = event.target.value;
@@ -28,6 +30,9 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 							const selectedValue = event.target.value;
 							// Realiza tu acción personalizada aquí
 							queryClient.setQueryData(['idSelect'], selectedValue);
+
+							stockProduct = products.body.data.filter(product => product.id == selectedValue);							
+							queryClient.setQueryData(['stock'], stockProduct);
 						}}
 					>
 						<option disabled value="">Lista de Productos</option>

@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 export const FormProduct = ({ inputConfigs, initialValues, onSubmit, validationSchema, titleButom }: any) => {
     const queryClient = useQueryClient();
     const productId: number | undefined = queryClient.getQueryData(['productId']);
+    
 
     return (
         <Formik

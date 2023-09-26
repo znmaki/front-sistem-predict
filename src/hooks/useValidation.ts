@@ -13,17 +13,17 @@ const useValidation = (inputs: any[]) => {
   };
 
   const initialReceived = {
-    nameProduct: productSelect?.product.id ?? '',
-    cantidad_comprada: productSelect?.quantity ?? 0,
-    costo_compra: productSelect?.unitPrice ?? 0,
-    fecha: productSelect?.fecha ?? '', //FALTA EL VALOR DE FECHA QUE DEVUELVA EL ELEMENTO
+    nameProduct: '',
+    cantidad_comprada: 0,
+    costo_compra: 0,
+    fecha: '',
   };
 
   const initialSold = {
-    nameProduct: productSelect?.product.id ?? '',
-    cantidad_vendida: productSelect?.quantity ? Math.abs(productSelect?.quantity) : 0,
-    costo_venta: productSelect?.unitPrice ?? 0,
-    fecha: productSelect?.fecha ?? '', //FALTA EL VALOR DE FECHA QUE DEVUELVA EL ELEMENTO
+    nameProduct: '',
+    cantidad_vendida: 0,
+    costo_venta: 0,
+    fecha: '',
   };
 
   const initialValues = {

@@ -14,7 +14,7 @@ const getProducts = async () => {
     return products;
 }
 
-export const useProductSales = (handleOpen: () => void) => {
+export const useProductSales = () => {
     const queryClient = useQueryClient();
 
     const products: any = useQuery(
@@ -54,51 +54,29 @@ export const useProductSales = (handleOpen: () => void) => {
     )
 
     const handleSubmit = async (values: unknown) => {
-        const productId = queryClient.getQueryData(['productId']);
+        const stockProduct: number | undefined = queryClient.getQueryData(['stock']);
+        const nuevaCopia = {
+            "quantity": values.cantidad_vendida,
+            "unitPrice": values.costo_venta,
+            "date": values.fecha,
+        };
 
-        if (productId !== undefined) {
-            console.log('hay producto', values);
-            const editProdut = {
-                "quantity": values.costo_venta * -1,
-                "unitPrice": values.cantidad_vendida,
-            };
-            /* await apiService.put(`http://localhost:3001/sold_products/${productId}`, values)
-            queryClient.invalidateQueries(['productsSold']); */
-            console.log(editProdut);
-            await apiService.put(`/movements/${productId}`, editProdut)
-            
-            queryClient.invalidateQueries(['productsSold']);
+        if (nuevaCopia.quantity > stockProduct[0].stock) {
+            console.log('muy alto');
+            //COLOCAR ALERTA
         } else {
-            const nuevaCopia = {
-                "quantity": values.cantidad_vendida,
-                "unitPrice": values.costo_venta,
-                "date": values.fecha,
-            };
-
             await apiService.post(`/products/${values.nameProduct}/withdraw`, nuevaCopia)
-            queryClient.invalidateQueries(['productsSold']);
         }
+
+        //await apiService.post(`/products/${values.nameProduct}/withdraw`, nuevaCopia)
+
+
+        queryClient.invalidateQueries(['productsSold']);
     }
 
     const handleDelete = async (productId: number) => {
         await apiService.delete(`http://localhost:3001/sold_products/${productId}`)
         queryClient.invalidateQueries(['productsSold']);
-    }
-
-    //lo uso para abrir el modal de edicion con los datos seleccionados (NO HACE LA ACCION DE EDICION, ESO LO HACE handleSubmit)
-    const handleEdit = (productId: number) => {
-        queryClient.setQueryData(['productId'], productId);
-
-        const productsQuery: [] | undefined = queryClient.getQueryData(['productsSold']);
-
-        if (productsQuery) {
-            const filteredProducts = productsQuery.filter((product: { id: number; }) => product.id === productId);
-            console.log(filteredProducts[0]);
-
-            queryClient.setQueryData(['productSelect'], filteredProducts[0]);
-        }
-
-        handleOpen()
     }
 
     return {
@@ -108,7 +86,6 @@ export const useProductSales = (handleOpen: () => void) => {
         //Methods
         handleSubmit,
         handleDelete,
-        handleEdit
         //Getters
 
         //Mutations

@@ -33,38 +33,18 @@ const commonColumns = [
 ];
 
 // Columnas específicas para cada conjunto de datos
-const columnsSoldProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [
+const columnsSoldProduct = [
     ...commonColumns,
-    /* { field: 'stock', headerName: 'Stock', width: 140 }, */
     { field: 'cantidad_vendida', headerName: 'Salida', width: 150 },
-    /* {
-        field: 'fullName',
-        headerName: 'Costo por Unidad (Soles)',
-        description: 'COSTO POR ALGO',
-        width: 300,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    }, */
     { field: 'costo_venta', headerName: 'Precio por Unidad', width: 220 },
-    { field: 'fecha', headerName: 'Fecha', width: 220 },
-    actionsColumn(220, handleDelete, handleEdit), // Ancho específico para este conjunto
+    { field: 'fecha', headerName: 'Fecha', width: 220 }
 ];
 
-const columnsRecievedProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [
+const columnsRecievedProduct = [
     ...commonColumns,
-    /* { field: 'stock', headerName: 'Stock', width: 140 }, */
     { field: 'cantidad_comprada', headerName: 'Entrada', width: 150 },
-    /* {
-        field: 'fullName',
-        headerName: 'Costo por Unidad (Soles)',
-        description: 'COSTO POR ALGO',
-        width: 300,
-        valueGetter: (params: GridValueGetterParams) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    }, */
     { field: 'costo_compra', headerName: 'Costo Por Unidad', width: 220 },
     { field: 'fecha', headerName: 'Fecha', width: 220 },
-    actionsColumn(220, handleDelete, handleEdit), // Ancho específico para este conjunto
 ];
 
 const columnsNewProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [

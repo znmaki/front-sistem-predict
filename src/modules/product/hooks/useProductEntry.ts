@@ -47,7 +47,7 @@ export const useProductEntry = (handleOpen: () => void) => {
                     name: item.product.name,
                     cantidad_comprada: item.quantity,
                     costo_compra: parseFloat(item.unitPrice),
-                    fecha: item.date
+                    fecha: formatoFecha(item.date)
                 }));
             },
         }

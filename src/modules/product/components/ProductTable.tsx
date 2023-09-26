@@ -59,7 +59,7 @@ const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
             {!rowData ? (<p>no hay</p>) : (
                 <DataGrid
                     rows={rowData}
-                    columns={columnsRecievedProduct(handleDelete, handleEdit)}
+                    columns={columnsRecievedProduct}
                     slots={{
                         toolbar: QuickSearchToolbar
                     }}
@@ -100,14 +100,13 @@ const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
     );
 }
 
-const ProductSoldTable = ({ rowData, handleOpen }: any) => {
-    const { handleDelete, handleEdit } = useProductSales(handleOpen)
+const ProductSoldTable = ({ rowData }: any) => {
     return (
         <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
             {!rowData ? (<p>no hay</p>) : (
                 <DataGrid
                     rows={rowData}
-                    columns={columnsSoldProduct(handleDelete, handleEdit)}
+                    columns={columnsSoldProduct}
                     slots={{
                         toolbar: QuickSearchToolbar
                     }}

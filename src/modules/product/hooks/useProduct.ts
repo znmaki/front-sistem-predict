@@ -30,7 +30,7 @@ export const useProduct = (handleOpen: () => void) => {
     };
 
     const handleDelete = async (productId: unknown) => {
-        await apiService.delete(`http://localhost:3001/products/${productId}`)
+        await apiService.delete(`/products/${productId}`)
         queryClient.invalidateQueries(['products']);
     };
 
@@ -41,8 +41,11 @@ export const useProduct = (handleOpen: () => void) => {
         const productsQuery: [] | undefined = queryClient.getQueryData(['products']);
 
         if (productsQuery) {
+            console.log(productsQuery.body.data.filter((product: { id: number; }) => product.id === productId));
+            
             const filteredProducts = productsQuery.body.data.filter((product: { id: number; }) => product.id === productId);
-            queryClient.setQueryData(['productSelect'], filteredProducts[0]);
+            console.log(filteredProducts[0]);
+            queryClient.setQueryData(['productSelect'], filteredProducts[0])
         }
 
         handleOpen();
