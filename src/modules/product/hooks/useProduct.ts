@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { apiService } from "../../../shared"
+import { apiService, getLoginUser } from "../../../shared"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 const getProducts = async () => {
-    const products = await apiService.get('http://localhost:3001/products');
+    const { id } = getLoginUser()
+    const products = await apiService.get(`/users/${id}/products`);
     return products;
 }
 
 export const useProduct = (handleOpen: () => void) => {
+
     const queryClient = useQueryClient();
-    const [productSelect, setproductSelect] = useState()
 
     const { isLoading, data } = useQuery(
         ['products'],
@@ -17,14 +18,12 @@ export const useProduct = (handleOpen: () => void) => {
     )
 
     const handleSubmit = async (values: unknown) => {
-
         const productId = queryClient.getQueryData(['productId']);
-
         if (productId !== undefined) {
-            await apiService.put(`http://localhost:3001/products/${productId}`, values)
+            await apiService.put(`/products/${productId}`, values)
             queryClient.invalidateQueries(['products']);
         } else {
-            await apiService.post('http://localhost:3001/products', values)
+            await apiService.post('/products', values)
             queryClient.invalidateQueries(['products']);
         }
 
@@ -35,15 +34,14 @@ export const useProduct = (handleOpen: () => void) => {
         queryClient.invalidateQueries(['products']);
     };
 
+    //lo uso para abrir el modal de edicion con los datos seleccionados (NO HACE LA ACCION DE EDICION, ESO LO HACE handleSubmit)
     const handleEdit = (productId: number) => {
         queryClient.setQueryData(['productId'], productId);
-
-        setproductSelect(queryClient.getQueryData(['productId']))
 
         const productsQuery: [] | undefined = queryClient.getQueryData(['products']);
 
         if (productsQuery) {
-            const filteredProducts = productsQuery.filter((product: { id: number; }) => product.id === productId);
+            const filteredProducts = productsQuery.body.data.filter((product: { id: number; }) => product.id === productId);
             queryClient.setQueryData(['productSelect'], filteredProducts[0]);
         }
 
@@ -54,7 +52,6 @@ export const useProduct = (handleOpen: () => void) => {
         //Properties
         isLoading,
         data,
-        productSelect,
         //Methods
         handleSubmit,
         handleDelete,

@@ -6,7 +6,13 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 	const [field, meta] = useField(id);
 
 	const queryClient = useQueryClient();
-	const productId: [] | undefined = queryClient.getQueryData(['nameProducts']);
+	const infoProducts: [] | undefined = queryClient.getQueryData(['infoProducts']);
+
+	const handleSelectChange = (event) => {
+		const selectedValue = event.target.value;
+		queryClient.setQueryData(['idSelect'], selectedValue);
+		console.log(selectedValue);
+	};
 
 	return (
 		<div className='flex flex-row items-center justify-between'>
@@ -17,11 +23,17 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 						as="select"
 						name={id}
 						className='w-full text-xl border border-[#707070] bg-white px-2 rounded-md'
+						/* onChange={handleSelectChange} */
+						onBlur={(event) => {
+							const selectedValue = event.target.value;
+							// Realiza tu acción personalizada aquí
+							queryClient.setQueryData(['idSelect'], selectedValue);
+						}}
 					>
 						<option disabled value="">Lista de Productos</option>
-						{productId && (
-							productId.map(product => (
-								<option value={product}>{product}</option>
+						{infoProducts && (
+							infoProducts.map(product => (
+								<option value={product.id} key={product.id}>{product.name}</option>
 							))
 						)}
 					</Field>

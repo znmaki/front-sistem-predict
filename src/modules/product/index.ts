@@ -3,6 +3,7 @@ export { default as Header } from './components/Header';
 export { default as MonthlyDemandChart } from './components/MonthlyDemandChart';
 export * from './components/ProductTable';
 export * from './components/TableConfigurator';
+export * from './helper/formatDate';
 export { default as ProductDashboard } from './pages/ListProductDash';
 export { default as ProductsDashboard } from './pages/ProductsDash';
 export { default as ReceivedProductRegistration } from './pages/ReceivedProductRegistration';

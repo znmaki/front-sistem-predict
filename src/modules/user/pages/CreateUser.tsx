@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import Logo from "../../../assets/logoHeader.svg";
+import Logo from "../../../assets/svg-deepstocked (1).svg";
 import SVG from "../../../assets/create-user.svg";
 import { Link } from "react-router-dom";
 import { useValidation } from "../../../hooks";
@@ -16,7 +16,9 @@ const CreateUser = () => {
       <Grid item xs={6}>
         <div className="flex flex-col items-center mt-[-50px]">
           <div className="w-[50%] space-y-4">
-            <img src={Logo} alt="Logo" />
+            <div className="h-[50%] w-[50%]">
+              <img src={Logo} alt="Logo" />
+            </div>
             <Typography variant="h5">Crear cuenta</Typography>
             <div>
               <FormUser

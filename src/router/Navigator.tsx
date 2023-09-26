@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { LoginUser, CreateUser } from "../modules/user"
+import { LoginUser, CreateUser, Authentication } from "../modules/user"
 import { ProductDashboard, ProductsDashboard, ReceivedProductRegistration, SoldProductRegistration, RegisterProduct } from "../modules/product"
 import { Layout } from "../shared"
 import ListNavi from "../ListNavi"
@@ -7,15 +7,17 @@ import ListNavi from "../ListNavi"
 const Navigator = () => {
 	return (
 		<BrowserRouter>
-			<ListNavi />
+			{/* <ListNavi /> */}
 
 			<Routes>
 				<Route path='/' element={<Navigate to='/login' replace />} />
 				{/* CUALQUIER USUSARIO */}
 				<Route path='/login' element={<LoginUser />} />
 				<Route path='/create-account' element={<CreateUser />} />
+				{/* PAGINA PARA ACTIVAR CUENTA */}
+				<Route path='/auth/activate' element={<Authentication />} /> 
 				{/* DEBE LOGEARSE */}
-				<Route path="/" element={<Layout />}>
+				<Route path="/" element={<Layout />}>					
 					<Route path="/inicio" element={<ProductsDashboard />} />
 					<Route path="/registrar-producto" element={<RegisterProduct />} />
 					<Route path="/productos-recibidos" element={<ReceivedProductRegistration />} />

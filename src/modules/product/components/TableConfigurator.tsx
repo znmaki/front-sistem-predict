@@ -29,13 +29,13 @@ const actionsColumnCatalog = (width: number) => ({
 // Columnas comunes
 const commonColumns = [
     { field: 'id', headerName: 'ID', width: 150 },
-    { field: 'nameProduct', headerName: 'Producto', width: 300 },
+    { field: 'name', headerName: 'Producto', width: 440 },
 ];
 
 // Columnas específicas para cada conjunto de datos
 const columnsSoldProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [
     ...commonColumns,
-    { field: 'stock', headerName: 'Stock', width: 140 },
+    /* { field: 'stock', headerName: 'Stock', width: 140 }, */
     { field: 'cantidad_vendida', headerName: 'Salida', width: 150 },
     /* {
         field: 'fullName',
@@ -52,7 +52,7 @@ const columnsSoldProduct = (handleDelete: (productId: number) => void, handleEdi
 
 const columnsRecievedProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [
     ...commonColumns,
-    { field: 'stock', headerName: 'Stock', width: 140 },
+    /* { field: 'stock', headerName: 'Stock', width: 140 }, */
     { field: 'cantidad_comprada', headerName: 'Entrada', width: 150 },
     /* {
         field: 'fullName',
@@ -74,7 +74,7 @@ const columnsNewProduct = (handleDelete: (productId: number) => void, handleEdit
 
 const columnsCatalog: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'nameProduct', headerName: 'Producto', width: 400 },
+    { field: 'name', headerName: 'Producto', width: 400 },
     actionsColumnCatalog(210), // Ancho específico para este conjunto
 ];
 

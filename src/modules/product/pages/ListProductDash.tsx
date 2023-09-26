@@ -6,22 +6,32 @@ import { TableCatalog } from '../components/ProductTable';
 import MonthlyDemandChart from '../components/MonthlyDemandChart';
 import { useDashboard } from '../hooks/useDashboard';
 import { useParams } from 'react-router-dom';
-import { Fragment } from 'react';
 import Loading from '../../../shared/components/Loading';
 
 const ProductPanel = () => {
   const { id } = useParams()
-  const { data, dataList, isLoading }: any = useDashboard(id)
-  
+  /* const { data, dataList, isLoading }: any = useDashboard(id) */
+  const { dataList, isLoadingList, dataCatalog, isLoadingCatalog }: any = useDashboard(id)
+  if (!isLoadingList) {
+    console.log(dataList);
+  }
+  /* if (!isLoadingList) {
+    console.log(dataList);    
+  }
+
+  if (!isLoadingCatalog) {
+    console.log(dataCatalog);
+  } */
+
   return (
-    isLoading ? (
+    isLoadingList ? (
       <Loading />
     ) : (
       <div className='h-full px-10 space-y-10 overflow-scroll overflow-x-hidden pt-16'>
         <Typography variant="h4" component='h1' className='!font-bold !text-[3.125rem]'>
           Estimación de la demanda futura
           <Typography variant="h4" component='p' className='!font-bold !text-[3.125rem] text-[#FF954A]'>
-            {data.nameProduct}
+            {dataList.product.name}
           </Typography>
         </Typography>
         <div className='grid grid-cols-2 gap-10'>
@@ -29,10 +39,10 @@ const ProductPanel = () => {
             <Title title='Información de Inventario' infoHover={jsonData.infoTitle.inventoryData} style='basis-[55%]' />
 
             <div className='grid grid-cols-2 gap-10'>
-              <CardProduct quantity={data[0].stock} title={jsonData.titleCard[0]} />
-              <CardProduct quantity={data[0].cantidad_vendida} title={jsonData.titleCard[1]} />
-              <CardProduct quantity='7500.00' title={jsonData.titleCard[2]} />
-              <CardProduct quantity='1500.00' title={jsonData.titleCard[3]} />
+              <CardProduct quantity={dataList.analytics.totalPurchases - dataList.analytics.totalSales} title={jsonData.titleCard[0]} />
+              <CardProduct quantity={dataList.analytics.totalSales} title={jsonData.titleCard[1]} />
+              <CardProduct quantity={dataList.analytics.totalEarnings} title={jsonData.titleCard[2]} />
+              <CardProduct quantity={dataList.length > 0 ? (dataList[0].earningsEntry) + (dataList[0].quantitySold) : 0} title={jsonData.titleCard[3]} />
             </div>
             {/* MODIFICAR */}
             <Title title='Optimización del inventario' infoHover={jsonData.infoTitle.inventoryOptimized} style='basis-[61%]' />
@@ -41,7 +51,7 @@ const ProductPanel = () => {
 
           <div className='row-span-2'>
             <Title title='Catálogo de Productos' infoHover={jsonData.infoTitle.productCatalog} />
-            <TableCatalog rowData={dataList} />
+            <TableCatalog rowData={dataCatalog} />
           </div>
         </div>
 
@@ -55,6 +65,7 @@ const ProductPanel = () => {
           <MonthlyDemandChart />
         </div>
       </div>)
+
   )
 }
 

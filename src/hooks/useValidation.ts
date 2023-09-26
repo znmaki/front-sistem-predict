@@ -9,21 +9,21 @@ const useValidation = (inputs: any[]) => {
   const productSelect: any = queryClient.getQueryData(['productSelect']);
 
   const initialProduct = {
-    nameProduct: productSelect?.nameProduct ?? '',
+    name: productSelect?.name ?? '',
   };
 
   const initialReceived = {
-    nameProduct: productSelect?.nameProduct ?? '',
-    cantidad_comprada: productSelect?.cantidad_comprada ?? 0,
-    costo_compra: productSelect?.costo_compra ?? 0,
-    fecha: productSelect?.fecha ?? '',
+    nameProduct: productSelect?.product.id ?? '',
+    cantidad_comprada: productSelect?.quantity ?? 0,
+    costo_compra: productSelect?.unitPrice ?? 0,
+    fecha: productSelect?.fecha ?? '', //FALTA EL VALOR DE FECHA QUE DEVUELVA EL ELEMENTO
   };
 
   const initialSold = {
-    nameProduct: productSelect?.nameProduct ?? '',
-    cantidad_vendida: productSelect?.cantidad_vendida ?? 0,
-    costo_venta: productSelect?.costo_venta ?? 0,
-    fecha: productSelect?.fecha ?? '',
+    nameProduct: productSelect?.product.id ?? '',
+    cantidad_vendida: productSelect?.quantity ? Math.abs(productSelect?.quantity) : 0,
+    costo_venta: productSelect?.unitPrice ?? 0,
+    fecha: productSelect?.fecha ?? '', //FALTA EL VALOR DE FECHA QUE DEVUELVA EL ELEMENTO
   };
 
   const initialValues = {

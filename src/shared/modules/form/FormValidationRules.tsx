@@ -61,7 +61,7 @@ export const inputFormSold: IConstInpuForm[] = [
 
 export const inputFormProduct = [
   {
-    id: "nameProduct",
+    id: "name",
     title: "Producto:",
     type: "normal",
     validation: Yup.string().required("El nombre del producto es obligatorio"),

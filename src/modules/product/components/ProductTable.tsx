@@ -85,7 +85,15 @@ const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
                             fontSize: '1.25rem',
                         },
                         border: 'none',
+                        '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+                            outline: 'none',
+                        },
+                        '& .Mui-selected': {
+                            backgroundColor: 'rgba(0, 0, 0, .15) !important',
+                            transition: 'background-color 500ms',
+                        },
                     }}
+                    disableRowSelectionOnClick
                 />
             )}
         </div>
@@ -125,7 +133,15 @@ const ProductSoldTable = ({ rowData, handleOpen }: any) => {
                             fontSize: '1.25rem',
                         },
                         border: 'none',
+                        '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+                            outline: 'none',
+                        },
+                        '& .Mui-selected': {
+                            backgroundColor: 'rgba(0, 0, 0, .15) !important',
+                            transition: 'background-color 500ms',
+                        },
                     }}
+                    disableRowSelectionOnClick
                 />
             )}
         </div>

@@ -32,7 +32,7 @@ export const useLogin = () => {
   const handleSubmit = async (values: UserLogin) => {
     const valueCaptcha = queryClient.getQueryData(['valueCaptcha']);
 
-    if (valueCaptcha) {
+    /* if (valueCaptcha) {
       const response = await apiService.post<ApiResponse<UserLoginResponse>>(
         "/auth/login",
         values
@@ -49,6 +49,20 @@ export const useLogin = () => {
     }
     else {
       queryClient.setQueryData(['isCaptcha'], false);
+    } */
+    
+    const response = await apiService.post<ApiResponse<UserLoginResponse>>(
+      "/auth/login",
+      values
+    );
+    if (response.status == 200) {
+      const { accessToken, refreshToken, user } = response.body;
+      setAccessToken(accessToken);
+      setRefreshToken(refreshToken);
+      setLoginUser(user);
+      navigate("/inicio");
+    } else if (response.status == 401) {
+      console.log("Usuario o contraseña incorrectos");
     }
   };
 

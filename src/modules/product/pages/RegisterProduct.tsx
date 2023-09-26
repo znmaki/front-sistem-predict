@@ -6,9 +6,10 @@ import { useProduct } from "../hooks/useProduct";
 import Loading from "../../../shared/components/Loading";
 
 const RegisterProduct = () => {
-    const { open, handleOpen, handleClose, style } = useModal();
+    const { open, handleOpen, handleClose, style } = useModal();    
     const { validationSchema, initialProduct } = useValidation(inputFormProduct);
     const { data, handleSubmit, isLoading } = useProduct(handleClose)
+    
     return (
         isLoading ? (
             <Loading />
@@ -18,7 +19,7 @@ const RegisterProduct = () => {
                     Registro de productos
                 </Typography >
                 <Buttom modalOpen={handleOpen}>Ingresar Producto</Buttom>
-                <ProductTable rowData={data} handleOpen={handleOpen} />
+                <ProductTable rowData={data.body.data} handleOpen={handleOpen} />
                 <Modal
                     open={open}
                     onClose={handleClose}

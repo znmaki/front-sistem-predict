@@ -9,6 +9,7 @@ const useModal = () => {
     const handleClose = () => {
         queryClient.removeQueries(['productSelect']);
         queryClient.removeQueries(['productId']);
+        queryClient.removeQueries(['idSelect']);
         setOpen(false)
     };
 
