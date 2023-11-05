@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import { IconDelete, IconSelectItem, IconUpdate } from "../../../shared/components/Icons";
 
 // Función reutilizable para la columna de acciones
 const actionsColumn = (width: number, handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => ({
@@ -8,8 +9,18 @@ const actionsColumn = (width: number, handleDelete: (productId: number) => void,
     width: width,
     renderCell: (params: { row: { id: number; }; }) => (
         <div>
-            <button onClick={() => handleDelete(params.row.id)}>Eliminar</button>
-            <button onClick={() => handleEdit(params.row.id)}>Editar</button>
+            <button onClick={() => handleEdit(params.row.id)} className="ml-6"><IconUpdate /></button>
+        </div >
+    ),
+});
+
+const actionsColumnDelete = (width: number, handleDelete: (productId: number) => void) => ({
+    field: 'actions',
+    headerName: 'Acciones',
+    width: width,
+    renderCell: (params: { row: { id: number; }; }) => (
+        <div>
+            <button onClick={() => handleDelete(params.row.id)} className="ml-6"><IconDelete /></button>
         </div >
     ),
 });
@@ -21,7 +32,7 @@ const actionsColumnCatalog = (width: number) => ({
     width: width,
     renderCell: (params: { row: { id: unknown; }; }) => (
         <div>
-            <Link to={`/tablero-productos/${params.row.id}`}>S</Link>
+            <Link to={`/tablero-productos/${params.row.id}`}><IconSelectItem /></Link>
         </div>
     ),
 });
@@ -29,27 +40,29 @@ const actionsColumnCatalog = (width: number) => ({
 // Columnas comunes
 const commonColumns = [
     { field: 'id', headerName: 'ID', width: 150 },
-    { field: 'name', headerName: 'Producto', width: 440 },
+    { field: 'name', headerName: 'Producto', width: 455 },//840
 ];
 
 // Columnas específicas para cada conjunto de datos
-const columnsSoldProduct = [
+const columnsSoldProduct = (handleDelete: (productId: number) => void) => [
     ...commonColumns,
     { field: 'cantidad_vendida', headerName: 'Salida', width: 150 },
     { field: 'costo_venta', headerName: 'Precio por Unidad', width: 220 },
-    { field: 'fecha', headerName: 'Fecha', width: 220 }
+    { field: 'fecha', headerName: 'Fecha', width: 220 },
+    actionsColumnDelete(220, handleDelete),
 ];
 
-const columnsRecievedProduct = [
+const columnsRecievedProduct = (handleDelete: (productId: number) => void) => [
     ...commonColumns,
     { field: 'cantidad_comprada', headerName: 'Entrada', width: 150 },
     { field: 'costo_compra', headerName: 'Costo Por Unidad', width: 220 },
     { field: 'fecha', headerName: 'Fecha', width: 220 },
+    actionsColumnDelete(220, handleDelete), // Ancho específico para este conjunto
 ];
 
 const columnsNewProduct = (handleDelete: (productId: number) => void, handleEdit: (productId: number) => void) => [
     ...commonColumns,
-    actionsColumn(150, handleDelete, handleEdit), // Pasa handleDelete como argumento
+    actionsColumn(810, handleDelete, handleEdit), // Pasa handleDelete como argumento
 ];
 
 const columnsCatalog: GridColDef[] = [

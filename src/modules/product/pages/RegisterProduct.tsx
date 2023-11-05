@@ -6,10 +6,10 @@ import { useProduct } from "../hooks/useProduct";
 import Loading from "../../../shared/components/Loading";
 
 const RegisterProduct = () => {
-    const { open, handleOpen, handleClose, style } = useModal();    
+    const { open, handleOpen, handleClose, style } = useModal();
     const { validationSchema, initialProduct } = useValidation(inputFormProduct);
-    const { data, handleSubmit, isLoading } = useProduct(handleClose)
-    
+    const { data, handleSubmit, isLoading } = useProduct(handleOpen, handleClose) as any;
+
     return (
         isLoading ? (
             <Loading />

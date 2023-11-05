@@ -46,20 +46,28 @@ const ProductTable = ({ rowData, handleOpen }: any) => {
                     fontSize: '1.25rem',
                 },
                 border: 'none',
+                '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+                    outline: 'none',
+                },
+                '& .Mui-selected': {
+                    backgroundColor: 'rgba(0, 0, 0, .15) !important',
+                    transition: 'background-color 500ms',
+                },
             }}
+            disableRowSelectionOnClick
         />
         </div>
     );
 }
 
 const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
-    const { handleDelete, handleEdit } = useProductEntry(handleOpen)
+    const { handleDelete } = useProductEntry(handleOpen)
     return (
         <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
             {!rowData ? (<p>no hay</p>) : (
                 <DataGrid
                     rows={rowData}
-                    columns={columnsRecievedProduct}
+                    columns={columnsRecievedProduct(handleDelete)}
                     slots={{
                         toolbar: QuickSearchToolbar
                     }}
@@ -100,13 +108,14 @@ const ProductRecievedTable = ({ rowData, handleOpen }: any) => {
     );
 }
 
-const ProductSoldTable = ({ rowData }: any) => {
+const ProductSoldTable = ({ rowData, handleOpen }: any) => {
+    const { handleDelete } = useProductSales(handleOpen)
     return (
         <div className='w-[100%] bg-white px-5 py-5 m-auto rounded-sm'>
             {!rowData ? (<p>no hay</p>) : (
                 <DataGrid
                     rows={rowData}
-                    columns={columnsSoldProduct}
+                    columns={columnsSoldProduct(handleDelete)}
                     slots={{
                         toolbar: QuickSearchToolbar
                     }}

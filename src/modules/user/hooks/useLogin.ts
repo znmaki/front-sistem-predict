@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 import {
   getAccessToken,
@@ -32,7 +33,7 @@ export const useLogin = () => {
   const handleSubmit = async (values: UserLogin) => {
     const valueCaptcha = queryClient.getQueryData(['valueCaptcha']);
 
-    /* if (valueCaptcha) {
+    if (valueCaptcha) {
       const response = await apiService.post<ApiResponse<UserLoginResponse>>(
         "/auth/login",
         values
@@ -49,9 +50,17 @@ export const useLogin = () => {
     }
     else {
       queryClient.setQueryData(['isCaptcha'], false);
-    } */
-    
-    const response = await apiService.post<ApiResponse<UserLoginResponse>>(
+      Swal.fire({
+        position: 'bottom-end',
+        icon: 'error',
+        title: `Debe Realizar el CAPTCHA`,
+        showConfirmButton: false,
+        backdrop: false,
+        timer: 1500,
+      })
+    }
+
+    /* const response = await apiService.post<ApiResponse<UserLoginResponse>>(
       "/auth/login",
       values
     );
@@ -63,7 +72,7 @@ export const useLogin = () => {
       navigate("/inicio");
     } else if (response.status == 401) {
       console.log("Usuario o contraseña incorrectos");
-    }
+    } */
   };
 
   const handleCaptcha = (value: any) => {

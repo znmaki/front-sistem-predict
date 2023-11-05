@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { LoginUser, CreateUser, Authentication } from "../modules/user"
+import { LoginUser, CreateUser, Authentication, SendEmail, ChangePassword } from "../modules/user"
 import { ProductDashboard, ProductsDashboard, ReceivedProductRegistration, SoldProductRegistration, RegisterProduct } from "../modules/product"
 import { Layout } from "../shared"
 import ListNavi from "../ListNavi"
@@ -16,6 +16,8 @@ const Navigator = () => {
 				<Route path='/create-account' element={<CreateUser />} />
 				{/* PAGINA PARA ACTIVAR CUENTA */}
 				<Route path='/auth/activate' element={<Authentication />} /> 
+				<Route path='/auth/reset-password' element={<ChangePassword />} /> 
+				<Route path='/auth/forgot-password' element={<SendEmail />} /> 
 				{/* DEBE LOGEARSE */}
 				<Route path="/" element={<Layout />}>					
 					<Route path="/inicio" element={<ProductsDashboard />} />

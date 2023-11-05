@@ -6,11 +6,11 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 	const [field, meta] = useField(id);
 
 	const queryClient = useQueryClient();
-	const infoProducts: [] | undefined = queryClient.getQueryData(['infoProducts']);
-	const products: number | undefined = queryClient.getQueryData(['products']);
+	const infoProducts: [] | any = queryClient.getQueryData(['infoProducts']);
+	const products: number | any = queryClient.getQueryData(['products']);
 	let stockProduct
 
-	const handleSelectChange = (event) => {
+	const handleSelectChange = (event: { target: { value: any; }; }) => {
 		const selectedValue = event.target.value;
 		queryClient.setQueryData(['idSelect'], selectedValue);
 		console.log(selectedValue);
@@ -26,18 +26,18 @@ export const InputForm = ({ content, type = 'text', id }: any) => {
 						name={id}
 						className='w-full text-xl border border-[#707070] bg-white px-2 rounded-md'
 						/* onChange={handleSelectChange} */
-						onBlur={(event) => {
+						onBlur={(event: { target: { value: any; }; }) => {
 							const selectedValue = event.target.value;
 							// Realiza tu acción personalizada aquí
 							queryClient.setQueryData(['idSelect'], selectedValue);
 
-							stockProduct = products.body.data.filter(product => product.id == selectedValue);							
+							stockProduct = products.body.data.filter((product: { id: any; }) => product.id == selectedValue);
 							queryClient.setQueryData(['stock'], stockProduct);
 						}}
 					>
 						<option disabled value="">Lista de Productos</option>
 						{infoProducts && (
-							infoProducts.map(product => (
+							infoProducts.map((product: any) => (
 								<option value={product.id} key={product.id}>{product.name}</option>
 							))
 						)}

@@ -45,3 +45,10 @@
   top: 0px;
   right: 0px;
 }
+
+.custom-popup-class{
+  z-index: 10000 !important;  
+}
+.swal2-container {
+  z-index: 10000 !important; /* Un valor alto para asegurarte de que esté por encima de otros elementos */
+}

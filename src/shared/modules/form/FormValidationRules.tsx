@@ -27,7 +27,7 @@ export const inputFormSold: IConstInpuForm[] = [
     typeInput: "number",
     additionalComponent: (
       <Typography component="p" className="text-[#FF954A] !text-xl">
-        Stock Actual 40 Unid.
+        Unidades
       </Typography>
     ),
     validation: Yup.number()
@@ -49,14 +49,7 @@ export const inputFormSold: IConstInpuForm[] = [
       .typeError("La cantidad debe ser un número")
       .positive("La cantidad debe ser un número positivo")
       .required("La cantidad es obligatoria"),
-  },
-  {
-    id: "fecha",
-    title: "Fecha:",
-    type: "normal",
-    typeInput: "date",
-    validation: Yup.string().required("La fecha es obligatoria"),
-  },
+  }
 ];
 
 export const inputFormProduct = [
@@ -78,12 +71,12 @@ export const inputFormRecieved: IConstInpuForm[] = [
   },
   {
     id: "cantidad_comprada",
-    title: "Salida:",
+    title: "Entrada:",
     type: "child",
     typeInput: "number",
     additionalComponent: (
       <Typography component="p" className="text-[#FF954A] !text-xl">
-        Stock Actual 40 Unid.
+        Unidades
       </Typography>
     ),
     validation: Yup.number()
@@ -93,7 +86,7 @@ export const inputFormRecieved: IConstInpuForm[] = [
   },
   {
     id: "costo_compra",
-    title: "Precio de venta por unidad (Soles):",
+    title: "Precio de compra por unidad (Soles):",
     type: "child",
     typeInput: "number",
     additionalComponent: (
@@ -105,14 +98,7 @@ export const inputFormRecieved: IConstInpuForm[] = [
       .typeError("La cantidad debe ser un número")
       .positive("La cantidad debe ser un número positivo")
       .required("La cantidad es obligatoria"),
-  },
-  {
-    id: "fecha",
-    title: "Fecha:",
-    type: "normal",
-    typeInput: "date",
-    validation: Yup.string().required("La fecha es obligatoria"),
-  },
+  }
 ];
 
 export const inputFormLogin = [

@@ -1,8 +1,9 @@
 import { Tooltip, Typography } from '@mui/material';
+import { IconHelp } from './Icons';
 
 const Title = ({ title, infoHover, style, styleLine = 'basis-[40%]' }: any) => {
 	return (
-		<div className='flex items-center'>
+		<div className='flex items-center pb-4'>
 			<Typography variant="h4" component='h1' className={`!font-bold !text-[30px] ${style}`}>
 				{title}
 			</Typography>
@@ -15,9 +16,9 @@ const Title = ({ title, infoHover, style, styleLine = 'basis-[40%]' }: any) => {
 					},
 				}}
 			>
-				<p className='px-5'>Icon</p>
+				<p className='px-6'><IconHelp/></p>
 			</Tooltip>
-			<hr className={`border border-red-700 ${styleLine}`} />
+			<hr className={`border border-[#FF954A] ${styleLine}`} />
 		</div>
 	)
 }

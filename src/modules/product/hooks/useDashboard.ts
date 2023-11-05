@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 
 const getMovement = async () => {
     const { id } = getLoginUser()
-    const movement = await apiService.get(`users/${id}/movements`);
+    const movement:any = await apiService.get(`users/${id}/movements`);
     return movement.body.data;
 }
 
-const getMovement2 = async (id) => {
-    const movement = await apiService.get(`products/${id}`);
+const getMovement2 = async (id: any) => {
+    const movement: any = await apiService.get(`products/${id}`);
     return movement.body;
 }
 
@@ -52,13 +52,14 @@ export const useDashboard = (productId: any) => {
         ['listCatalog'],
         getCatalog,
         {
-            select: (data) => {
-                const catalogList = data.body.data.map((item) => ({
+            select: (data: any) => {
+                const catalogList = data.body.data.map((item: { id: any; name: any; }) => ({
                     id: item.id,
                     name: item.name
                 }))
                 return catalogList
-            }
+            },
+            refetchOnWindowFocus: false, // default: true
         }
     )
 
@@ -131,7 +132,10 @@ export const useDashboard = (productId: any) => {
 
     const listProducts = useQuery(
         ['productInfo', productId],
-        () => getMovement2(productId)
+        () => getMovement2(productId),
+        {
+            refetchOnWindowFocus: false,
+        }
     )
 
     /* const productRecived = useQuery(

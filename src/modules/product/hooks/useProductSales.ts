@@ -1,10 +1,11 @@
 import { formatoFecha } from "..";
 import { apiService, getLoginUser } from "../../../shared";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Swal from 'sweetalert2'
 
 const getMovement = async () => {
     const { id } = getLoginUser()
-    const movement = await apiService.get(`users/${id}/movements`);
+    const movement: any = await apiService.get(`users/${id}/movements`);
     return movement.body.data;
 }
 
@@ -14,16 +15,15 @@ const getProducts = async () => {
     return products;
 }
 
-export const useProductSales = () => {
+export const useProductSales = (handleOpen: () => void, handleClose?: () => void) => {
     const queryClient = useQueryClient();
 
     const products: any = useQuery(
         ['products'],
         () => getProducts(),
         {
-            refetchOnWindowFocus: false,
-            select: (data) => {
-                const idList = data.body.data.map((item) => ({
+            select: (data: any) => {
+                const idList = data.body.data.map((item: any) => ({
                     id: item.id,
                     name: item.name
                 }))
@@ -36,13 +36,12 @@ export const useProductSales = () => {
         ['productsSold'],
         getMovement,
         {
-            refetchOnWindowFocus: false,
             select: (data) => {
                 // Filtrar los elementos cuyo type.name sea igual a 'Entrada'
-                const filteredData = data.filter((item) => item.type.name === 'Salida');
+                const filteredData = data.filter((item: any) => item.type.name === 'Salida');
 
                 // Mapear y limpiar los objetos filtrados
-                return filteredData.map((item) => ({
+                return filteredData.map((item: any) => ({
                     id: item.id,
                     name: item.product.name,
                     cantidad_vendida: Math.abs(item.quantity),
@@ -53,8 +52,8 @@ export const useProductSales = () => {
         }
     )
 
-    const handleSubmit = async (values: unknown) => {
-        const stockProduct: number | undefined = queryClient.getQueryData(['stock']);
+    const handleSubmit = async (values: any) => {
+        const stockProduct: number | any = queryClient.getQueryData(['stock']);
         const nuevaCopia = {
             "quantity": values.cantidad_vendida,
             "unitPrice": values.costo_venta,
@@ -62,10 +61,32 @@ export const useProductSales = () => {
         };
 
         if (nuevaCopia.quantity > stockProduct[0].stock) {
-            console.log('muy alto');
+
+            handleClose?.();
             //COLOCAR ALERTA
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: `Oops...`,
+                text: `Solo hay ${stockProduct[0].stock} productos`,
+                showConfirmButton: false,
+                backdrop: false,
+                timer: 2500,
+            })
         } else {
             await apiService.post(`/products/${values.nameProduct}/withdraw`, nuevaCopia)
+
+            handleClose?.();
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `¡Qué bien!`,
+                text: `La Operación se Realizó con Éxito`,
+                showConfirmButton: false,
+                backdrop: false,
+                timer: 2500,
+            })
         }
 
         //await apiService.post(`/products/${values.nameProduct}/withdraw`, nuevaCopia)
@@ -75,8 +96,18 @@ export const useProductSales = () => {
     }
 
     const handleDelete = async (productId: number) => {
-        await apiService.delete(`http://localhost:3001/sold_products/${productId}`)
+        await apiService.delete(`/movements/${productId}`)
         queryClient.invalidateQueries(['productsSold']);
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `¡Qué bien!`,
+            text: `La Operación se Realizó con Éxito`,
+            showConfirmButton: false,
+            backdrop: false,
+            timer: 2500,
+        })
     }
 
     return {

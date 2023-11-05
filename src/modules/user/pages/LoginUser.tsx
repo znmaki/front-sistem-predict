@@ -33,6 +33,13 @@ const LoginUser = () => {
                 Crear una cuenta
               </Link>
             </Typography>
+
+            <Typography component="p" className="text-center">
+              Se olvido su contraseña?{" "}
+              <Link to="/auth/forgot-password" className="text-[#FFB347]">
+                Reiniciar contraseña
+              </Link>
+            </Typography>
           </div>
         </div>
       </Grid>
